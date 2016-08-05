@@ -25,9 +25,20 @@ class SurveysController < ApplicationController
   end
 
   def edit
+    @survey = Survey.find(params[:id])
+    @survey.number_range_questions.build
+    @survey.multiple_choice_questions.build
   end
 
   def update
+    @survey = Survey.find(params[:id])
+    if @survey.update(survey_params)
+      flash.notice = "Your survey has been created."
+      redirect_to @survey
+    else
+      flash.now.notice = "An error occurred."
+      render :new
+    end
   end
 
   def destroy
@@ -36,7 +47,7 @@ class SurveysController < ApplicationController
   private
 
   def survey_params
-    params.require(:survey).permit(:title, :description)
+    params.require(:survey).permit(:title, :description, :number_range_questions_attributes => [:min, :max, :title, :id, :required, :_destroy], :multiple_choice_questions_attributes => [:title, :id, :required, :multiple_choices, :_destroy])
   end
 
 end

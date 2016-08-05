@@ -12,6 +12,62 @@
         <%= f.text_area :description, class: "form-control" %>
       </div>
 
+      <% unless @survey.number_range_questions.empty? %>
+      <h4>Number Range Question(s)</h4>
+      <% end %>
+      <%= f.fields_for :number_range_questions do |nrq_field| %>
+
+        <% if nrq_field.object.persisted? %>
+          <%= nrq_field.label :_destroy, "Delete this question?" %>
+          <%= nrq_field.check_box :_destroy %>
+        <% end %>
+
+        <div class="form-group">
+          <%= nrq_field.label :title %>
+          <%= nrq_field.text_field :title, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= nrq_field.label :min %>
+          <%= nrq_field.number_field :min, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= nrq_field.label :max %>
+          <%= nrq_field.number_field :max, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= nrq_field.label :required %>
+          <%= nrq_field.check_box :required, {}, checked_value = true, unchecked_value = false%>
+        </div>
+      <% end %>
+      <% unless @survey.multiple_choice_questions.empty? %>
+      <h4>Multiple Choice Question(s)</h4>
+      <% end %>
+      <%= f.fields_for :multiple_choice_questions do |mc_field| %>
+
+        <% if mc_field.object.persisted? %>
+          <%= mc_field.label :_destroy, "Delete this question?" %>
+          <%= mc_field.check_box :_destroy %>
+        <% end %>
+        
+        <div class="form-group">
+          <%= mc_field.label :title %>
+          <%= mc_field.text_field :title, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= mc_field.label :multiple_choices %>
+          <%= mc_field.check_box :multiple_choices, {}, checked_value = true, unchecked_value = false%>
+        </div>
+
+        <div class="form-group">
+          <%= mc_field.label :required %>
+          <%= mc_field.check_box :required, {}, checked_value = true, unchecked_value = false%>
+        </div>
+      <% end %>
+
       <%= f.submit class: "btn btn-primary" %>
 
     </div>
