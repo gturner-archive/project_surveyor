@@ -6,7 +6,6 @@ class SurveysController < ApplicationController
 
   def show
     @survey = Survey.find(params[:id])
-    @nrquestion = NumberRangeQuestion.new
   end
 
   def new
@@ -26,8 +25,6 @@ class SurveysController < ApplicationController
 
   def edit
     @survey = Survey.find(params[:id])
-    @survey.number_range_questions.build
-    @survey.multiple_choice_questions.build
   end
 
   def update
@@ -47,7 +44,7 @@ class SurveysController < ApplicationController
   private
 
   def survey_params
-    params.require(:survey).permit(:title, :description, :number_range_questions_attributes => [:min, :max, :title, :id, :required, :_destroy], :multiple_choice_questions_attributes => [:title, :id, :required, :multiple_choices, :_destroy])
+    params.require(:survey).permit(:title, :description)
   end
 
 end

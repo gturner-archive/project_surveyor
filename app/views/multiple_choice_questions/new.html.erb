@@ -1,0 +1,32 @@
+<h1><%= @survey.title %></h1>
+<p>
+  <%= @survey.description %>
+</p>
+
+<h4>Current Questions</h4>
+<ul>
+  <% @survey.multiple_choice_questions.each do |question| %>
+    <li><%= question.title %></li>
+  <% end %>
+</ul>
+
+<%= form_for [@survey, @question] do |mc_field| %>
+
+  <div class="form-group">
+    <%= mc_field.label :title %>
+    <%= mc_field.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= mc_field.label :multiple_choices %>
+    <%= mc_field.check_box :multiple_choices, {}, checked_value = true, unchecked_value = false%>
+  </div>
+
+  <div class="form-group">
+    <%= mc_field.label :required %>
+    <%= mc_field.check_box :required, {}, checked_value = true, unchecked_value = false%>
+  </div>
+
+  <%= mc_field.submit class: "btn btn-primary" %>
+
+<% end %>

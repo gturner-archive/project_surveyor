@@ -2,8 +2,19 @@
 
 <p><%= @survey.description %></p>
 
+
+<h4>Number Range</h4>
 <ul>
   <% @survey.number_range_questions.each do |question| %>
     <li><%= question.title %></li>
+    <li><%= link_to "Delete Question", survey_number_range_question_path(@survey, question), method: :delete %></li>
+  <% end %>
+</ul>
+
+<h4>Multiple Choice</h4>
+<ul>
+  <% @survey.multiple_choice_questions.each do |question| %>
+    <li><%= question.title %></li>
+    <li><%= link_to "Delete Question", survey_multiple_choice_question_path(@survey, question), method: :delete %></li>
   <% end %>
 </ul>

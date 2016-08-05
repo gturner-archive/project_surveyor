@@ -1,9 +1,4 @@
 class NumberRangeQuestionsController < ApplicationController
-  def index
-  end
-
-  def show
-  end
 
   def new
     @survey = Survey.find(params[:survey_id])
@@ -22,13 +17,11 @@ class NumberRangeQuestionsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
-  def delete
+  def destroy
+    @question = NumberRangeQuestion.find(params[:id])
+    @survey = Survey.find(params[:survey_id])
+    @survey.number_range_questions.destroy(@question)
+    redirect_to @survey
   end
 
   private

@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   resources :users, except: [:update, :edit, :destroy]
   resources :surveys do
-    resources :number_range_questions
-    resources :multiple_choice_questions
+    resources :number_range_questions, only: [:new, :create, :destroy]
+    resources :multiple_choice_questions, only: [:new, :create, :destroy]
   end
 
 
