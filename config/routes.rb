@@ -8,5 +8,9 @@ Rails.application.routes.draw do
     resources :multiple_choice_questions, only: [:new, :create, :destroy]
   end
 
+  resources :multiple_choice_questions, only: [] do
+    resources :options, only: [:new, :create]
+  end
+
 
 end

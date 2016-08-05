@@ -27,6 +27,11 @@
     <%= mc_field.check_box :required, {}, checked_value = true, unchecked_value = false%>
   </div>
 
-  <%= mc_field.submit class: "btn btn-primary" %>
+  <div class="form-group">
+    <%= mc_field.label :number_questions %>
+    <%= mc_field.number_field :number_questions%>
+  </div>
+
+  <%= mc_field.submit value: "Create Choices", class: "btn btn-primary" %>
 
 <% end %>
