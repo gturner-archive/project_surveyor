@@ -1,0 +1,7 @@
+<%= form_for @survey do |f| %>
+  <div class="form-group">
+    <%= f.text_field :title, class: "form-control" %>
+    <%= f.text_area :description, class: "form-control" %>
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
