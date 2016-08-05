@@ -2,4 +2,8 @@
 
 <p><%= @survey.description %></p>
 
-<%= link_to "Add Number Range Question", new_survey_number_range_question_path(@survey) %>
+<ul>
+  <% @survey.number_range_questions.each do |question| %>
+    <li><%= question.title %></li>
+  <% end %>
+</ul>

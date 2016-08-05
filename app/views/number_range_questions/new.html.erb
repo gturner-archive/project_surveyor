@@ -1,4 +1,4 @@
-<%= form_for @survey, @question do |f| %>
+<%= form_for [@survey, @question] do |f| %>
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
 
@@ -19,7 +19,7 @@
 
       <div class="form-group">
         <%= f.label :required %>
-        <%= f.check_box :required %>
+        <%= f.check_box :required, {}, checked_value = true, unchecked_value = false%>
       </div>
 
       <%= f.submit class: "btn btn-primary" %>
