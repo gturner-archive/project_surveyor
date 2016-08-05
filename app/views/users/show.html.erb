@@ -1,0 +1,7 @@
+<h1><%= @user.name %></h1>
+
+<% unless @user.surveys.empty? %>
+  <% @user.surveys.each do |survey| %>
+  <%= link_to survey.title, survey %>
+  <% end %>
+<% end %>

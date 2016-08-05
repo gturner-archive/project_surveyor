@@ -13,7 +13,7 @@ A project by Graham and Mike
   - Description - text
 - MultipleChoiceQuestion
    - Title - string
-   - Num_choices - integer
+   - Num_choices - boolean
    - Required - boolean
 - NumberRangeQuestion
   - Title - string
