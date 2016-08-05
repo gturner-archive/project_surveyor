@@ -5,5 +5,5 @@ class MultipleChoiceQuestion < ActiveRecord::Base
   def number_questions
     true
   end
-  
+
 end

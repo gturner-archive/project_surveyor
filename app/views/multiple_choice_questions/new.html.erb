@@ -7,6 +7,11 @@
 <ul>
   <% @survey.multiple_choice_questions.each do |question| %>
     <li><%= question.title %></li>
+    <% question.options.each do |option|%>
+    <ul>
+      <li><%= option.title %></li>
+    </ul>
+    <% end %>
   <% end %>
 </ul>
 
@@ -32,6 +37,6 @@
     <%= mc_field.number_field :number_questions%>
   </div>
 
-  <%= mc_field.submit value: "Create Choices", class: "btn btn-primary" %>
+  <%= mc_field.submit class: "btn btn-primary" %>
 
 <% end %>

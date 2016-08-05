@@ -7,10 +7,14 @@ class MultipleChoiceQuestionsController < ApplicationController
 
   def create
     @survey = Survey.find(params[:survey_id])
-    @survey.multiple_choice_questions.build(multiple_choice_question_params)
+
+    question = @survey.multiple_choice_questions.build(multiple_choice_question_params)
+
+   var = params[:multiple_choice_question]
+   session[:num_questions] = var[:number_questions].to_i
     if @survey.save
       flash.notice = "Your question has been created."
-      redirect_to @survey
+      redirect_to new_multiple_choice_question_option_path(question)
     else
       flash.now.notice = "An error occurred."
       render :new

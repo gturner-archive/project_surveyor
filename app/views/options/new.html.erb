@@ -1,0 +1,15 @@
+<%= form_tag multiple_choice_question_options_path do %>
+  <% @options.each do |option| %>
+    <%= fields_for 'options[]', option do |op| %>
+
+      <div class="form-group">
+        <%= op.label :title %><br>
+        <%= op.text_field :title %>
+      </div>
+
+    <% end %>
+  <% end %>
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>
