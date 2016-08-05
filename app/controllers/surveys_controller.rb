@@ -13,6 +13,14 @@ class SurveysController < ApplicationController
   end
 
   def create
+    @survey = Survey.new(survey_params)
+    if @survey.save
+      flash.notice = "Your survey has been created."
+      redirect_to @survey
+    else
+      flash.now.notice = "An error occurred."
+      render :new
+    end
   end
 
   def edit
@@ -22,6 +30,12 @@ class SurveysController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def survey_params
+    params.require(:survey).permit(:title, :description)
   end
 
 end
