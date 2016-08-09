@@ -10,10 +10,9 @@
       <% @survey.number_range_questions.each do |question|%>
         <p><%= question.title %></p>
         <div class="form-group">
-          <% question.min.upto(question.max) do |val| %>
-            <label><%= val %></label>
-            <input type="radio" name="survey[nrq][<%= question.id %>]" value="<%= val %>">
-            <% end %>
+          <span>
+          <%= question.min %></span><input type="range" name="survey[nrq][<%= question.id %>]" id="input<%= question.id %>_range" min="<%= question.min %>" max="<%= question.max %>">
+          <span><%= question.max %></span>
         </div>
       <% end %>
 
