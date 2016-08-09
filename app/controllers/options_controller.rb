@@ -13,7 +13,7 @@ class OptionsController < ApplicationController
     params["options"].each do |option|
       @question.options.create(option_params(option))
     end
-    redirect_to new_survey_multiple_choice_question_path(@question.survey_id)
+    redirect_to edit_survey_path(@question.survey_id)
   end
 
   private

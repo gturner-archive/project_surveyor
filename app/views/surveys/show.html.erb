@@ -1,20 +1,48 @@
-<h1><%= @survey.title %></h1>
+<div class="row">
+  <div class="text-center">
+    <h1><%= @survey.title %></h1>
+    <p><%= @survey.description %></p>
+  </div>
 
-<p><%= @survey.description %></p>
+  <div class="col-sm-8 col-sm-offset-2">
+    <form action="<%= user_responses_path(@user.id) %>" method="post">
 
+      <% @survey.number_range_questions.each do |question|%>
+        <p><%= question.title %></p>
+        <div class="form-group">
+          <% question.min.upto(question.max) do |val| %>
+            <label><%= val %></label>
+            <input type="radio" name="survey[nrq][<%= question.id %>]" value="<%= val %>">
+            <% end %>
+        </div>
+      <% end %>
 
-<h4>Number Range</h4>
-<ul>
-  <% @survey.number_range_questions.each do |question| %>
-    <li><%= question.title %></li>
-    <li><%= link_to "Delete Question", survey_number_range_question_path(@survey, question), method: :delete %></li>
-  <% end %>
-</ul>
+      <% @survey.multiple_choice_questions.each do |question| %>
+        <p><%= question.title %></p>
 
-<h4>Multiple Choice</h4>
-<ul>
-  <% @survey.multiple_choice_questions.each do |question| %>
-    <li><%= question.title %></li>
-    <li><%= link_to "Delete Question", survey_multiple_choice_question_path(@survey, question), method: :delete %></li>
-  <% end %>
-</ul>
+          <% if question.multiple_choices %>
+            <% question.options.each do |option| %>
+              <div class="form-group">
+                <label><%= option.title %></label>
+                <input type="checkbox" name="survey[mcq][<%= question.id %>][]"
+                                     value="<%= option.title %>">
+              </div>
+            <% end %>
+          <% else %>
+            <% question.options.each do |option| %>
+              <div class="form-group">
+                <label><%= option.title %></label>
+                <input type="radio" name="survey[mcq][<%= question.id %>]" value="<%= option.title %>">
+              </div>
+          <% end %>
+        <% end %>
+
+      <% end %>
+
+       <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+       <input type="hidden" name="name" value="">
+      <input type="submit" value="Submit Form" class="btn btn-primary">
+
+    </form>
+  </div>
+</div>

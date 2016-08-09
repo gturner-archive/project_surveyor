@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805182311) do
+ActiveRecord::Schema.define(version: 20160808235627) do
 
   create_table "multiple_choice_questions", force: :cascade do |t|
     t.string   "title"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20160805182311) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
+
+  create_table "responses", force: :cascade do |t|
+    t.string   "value"
+    t.integer  "user_id"
+    t.integer  "answerable_id"
+    t.string   "answerable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "responses", ["user_id"], name: "index_responses_on_user_id"
 
   create_table "surveys", force: :cascade do |t|
     t.string   "title"

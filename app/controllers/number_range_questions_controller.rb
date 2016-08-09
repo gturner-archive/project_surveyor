@@ -10,7 +10,7 @@ class NumberRangeQuestionsController < ApplicationController
     @survey.number_range_questions.build(number_range_question_params)
     if @survey.save
       flash.notice = "Your question has been created."
-      redirect_to @survey
+      redirect_to edit_survey_path(@survey)
     else
       flash.now.notice = "An error occurred."
       render :new
@@ -19,9 +19,8 @@ class NumberRangeQuestionsController < ApplicationController
 
   def destroy
     @question = NumberRangeQuestion.find(params[:id])
-    @survey = Survey.find(params[:survey_id])
-    @survey.number_range_questions.destroy(@question)
-    redirect_to @survey
+    redirect_to edit_survey_path(@question.survey_id)
+    @question.destroy
   end
 
   private

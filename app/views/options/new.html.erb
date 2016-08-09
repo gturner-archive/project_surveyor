@@ -1,15 +1,24 @@
-<%= form_tag multiple_choice_question_options_path do %>
-  <% @options.each do |option| %>
-    <%= fields_for 'options[]', option do |op| %>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
 
+    <%= form_tag multiple_choice_question_options_path do %>
+
+      <% @options.each do |option| %>
+        <%= fields_for 'options[]', option do |op| %>
+
+          <div class="form-group">
+            <%= op.label :title %><br>
+            <%= op.text_field :title, class: "form-control" %>
+          </div>
+
+        <% end %>
+      <% end %>
       <div class="form-group">
-        <%= op.label :title %><br>
-        <%= op.text_field :title %>
+        <%= submit_tag "Submit Options",
+                        class: "btn, btn-primary form-control" %>
+        <%= link_to "Back to Previous Step", edit_multiple_choice_question_path(@question) %>
       </div>
-
     <% end %>
-  <% end %>
-  <div class="actions">
-    <%= submit_tag %>
+
   </div>
-<% end %>
+</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  value: MyString
+  user_id: 
+  answerable_id: 1
+  answerable_type: MyString
+
+two:
+  value: MyString
+  user_id: 
+  answerable_id: 1
+  answerable_type: MyString

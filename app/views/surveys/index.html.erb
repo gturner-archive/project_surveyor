@@ -1,9 +1,17 @@
 <h1>All Surveys!</h1>
 
 <% @surveys.each do |survey| %>
-<h4><%= link_to survey.title, survey %></h4>
-<ul>
-  <li><%= link_to "Edit the Survey", edit_survey_path(survey) %></li>
-  <li><%= link_to "Delete the Survey", surveys_path(survey), method: :delete %></li>
-</ul>
+  <% if survey.has_questions? %>
+    <h4><%= link_to survey.title, survey %></h4>
+    <ul>
+      <li><%= link_to "Edit the Survey", edit_survey_path(survey) %></li>
+      <li><%= link_to "Delete the Survey", surveys_path(survey), method: :delete %></li>
+    </ul>
+  <% else %>
+    <h4><%= survey.title %></h4>
+    <ul>
+      <li><%= link_to "Edit the Survey", edit_survey_path(survey) %></li>
+      <li><%= link_to "Delete the Survey", surveys_path(survey), method: :delete %></li>
+    </ul>
+  <% end %>
 <% end %>

@@ -18,9 +18,12 @@
       <% end %>
     </ul>
 
-    <%= render partial: "mc_form", locals: { :survey => @survey,
+    <%= render partial: "mc_edit", locals: { :survey => @survey,
                                           :question => @question,
                                           :num_questions => @num_questions }  %>
+
+    <%= link_to "Discard Question", multiple_choice_question_path(@question),
+                                   method: :delete %>
 
   </div>
 </div>

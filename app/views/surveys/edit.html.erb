@@ -1,4 +1,31 @@
 <%= render :partial => "survey_form", locals: { survey: @survey } %>
 
-<%= link_to "Add Number Range Question", new_survey_number_range_question_path(@survey) %>
-<%= link_to "Add Multiple Choice Question", new_survey_multiple_choice_question_path(@survey) %>
+<div class="row text-center ">
+  <div class="col-sm-3 col-sm-offset-3">
+    <%= link_to "Add Number Range Question", new_survey_number_range_question_path(@survey) %>
+  </div>
+  <div class="col-sm-3">
+    <%= link_to "Add Multiple Choice Question", new_survey_multiple_choice_question_path(@survey) %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-2">
+    <h4>Number Range Questions:</h4>
+    <ul>
+      <% @survey.number_range_questions.each do |question| %>
+        <li><%= question.title %></li>
+        <li><%= link_to "Delete Question", number_range_question_path(question), method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-sm-4 col-sm-offset-1">
+    <h4>Multiple Choice Questions:</h4>
+    <ul>
+      <% @survey.multiple_choice_questions.each do |question| %>
+        <li><%= question.title %></li>
+        <li><%= link_to "Delete Question", multiple_choice_question_path(question), method: :delete %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

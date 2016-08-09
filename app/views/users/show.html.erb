@@ -1,5 +1,14 @@
 <h1><%= @user.name %></h1>
 
+<% unless @user.responses.empty? %>
+  <% @user.responses.each do |response| %>
+    <% question  = response.answerable_type.constantize
+                  .find(response.answerable_id) %>
+    <p>Question: <%= question.title %></p>
+    <p>Answer: <%= response.value %></p>
+  <% end %>
+<% end %>
+
 <% unless @user.surveys.empty? %>
   <% @user.surveys.each do |survey| %>
   <%= link_to survey.title, survey %>
