@@ -17,5 +17,7 @@ Rails.application.routes.draw do
 
   resources :number_range_questions, only: [:destroy]
 
-
+  namespace 'admin' do
+    resources :surveys, only: [:show]
+  end
 end

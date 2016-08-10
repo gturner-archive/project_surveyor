@@ -4,47 +4,58 @@
     <p><%= @survey.description %></p>
   </div>
 
+<% if @survey.has_questions? %>
   <div class="col-sm-8 col-sm-offset-2">
-    <form action="<%= user_responses_path(@user.id) %>" method="post">
+    <% unless @survey.errors.full_messages.empty? %>
+      <p class="errors">Your field has errors!</p>
+    <% end %>
+    <%= form_for(:user, url: user_responses_path(@user.id)) do |f| %>
 
       <% @survey.number_range_questions.each do |question|%>
-        <p><%= question.title %></p>
+        <p><strong><%= @count += 1 %>.</strong> <%= question.title %><span class="required"><%= "*" if question.required %></span></p>
+        <% unless @survey.errors["#{question.id}"].empty? %>
+          <p class="errors"><%= @survey.errors["#{question.id}"].first %></p>
+        <% end %>
         <div class="form-group">
-          <span><%= question.min %></span>
-          <input type="range" name="survey[nrq][<%= question.id %>]"
-                                          min="<%= question.min %>"
-                                          max="<%= question.max %>">
-          <span><%= question.max %></span>
+          <%= fields_for :response do |response| %>
+            <span><%= question.min %></span>
+            <%= response.range_field "[nrq][#{question.id}]", min: question.min, max: question.max %>
+            <span><%= question.max %></span>
+          <% end %>
         </div>
       <% end %>
 
       <% @survey.multiple_choice_questions.each do |question| %>
-        <p><%= question.title %></p>
+        <p><strong><%= @count += 1 %>.</strong> <%= question.title %><span class="required"><%= "*" if question.required %></span></p>
+        <% unless @survey.errors["#{question.id}"].empty? %>
+          <p class="errors"><%= @survey.errors["#{question.id}"].first %></p>
+        <% end %>
 
           <% if question.multiple_choices %>
             <% question.options.each do |option| %>
               <div class="form-group">
-                <label><%= option.title %></label>
-                <input type="checkbox" name="survey[mcq][<%= question.id %>][]"
-                                     value="<%= option.title %>">
+                <%= fields_for :response do |response| %>
+                 <%= response.label option.title %>
+                 <%= response.check_box "[mcq][#{question.id}]", {:multiple => true}, option.title, "" %>
+                <% end %>
               </div>
             <% end %>
           <% else %>
-            <% question.options.each do |option| %>
+            <% question.options.each_with_index do |option, idx| %>
               <div class="form-group">
-                <label><%= option.title %></label>
-                <input type="radio" name="survey[mcq][<%= question.id %>]"
-                                    value="<%= option.title %>">
+                <%= fields_for :response do |response| %>
+                  <%= response.label option.title %>                  <%= response.hidden_field "[mcq][#{question.id}]", :value => "", :checked => true if idx == 0%>
+                  <%= response.radio_button "[mcq][#{question.id}]", option.title %>
+                <% end %>
               </div>
           <% end %>
         <% end %>
 
       <% end %>
 
-       <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-       <input type="hidden" name="name" value="">
-      <input type="submit" value="Submit Form" class="btn btn-primary">
+      <%= f.submit "Submit Form" %>
 
-    </form>
+    <% end %>
   </div>
+  <% end %>
 </div>

@@ -1,0 +1,46 @@
+<h1><%= @survey.title %></h1>
+<h2><%= @survey.description %></h2>
+
+
+  <% @survey.multiple_choice_questions.each do |question| %>
+    <p><%= question.title %></p>
+    <table class="table table-striped">
+      <tr>
+        <th>Answer</th>
+        <th>Times Selected</th>
+      </tr>
+
+      <% question.responses.group("value").count.each do |key, val| %>
+        <tr>
+          <td><%= key %></td>
+          <td><%= val %></td>
+        </tr>
+      <% end %>
+
+      <% used_values = question.responses.select(:values).distinct.pluck(:value) %>
+      <% question.options.each do |option| %>
+        <% unless used_values.include? option.title %>
+          <tr>
+            <td><%= option.title %></td>
+            <td>0</td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <% end %>
+
+  <% @survey.number_range_questions.each do |question| %>
+    <p><%= question.title %></p>
+    <table class="table table-striped">
+      <tr>
+        <th>Answer</th>
+        <th>Times Selected</th>
+      </tr>
+      <% question.responses.group("value").count.each do |key, val| %>
+        <tr>
+          <td><%= key %></td>
+          <td><%= val %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>

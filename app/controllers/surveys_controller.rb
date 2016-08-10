@@ -7,6 +7,7 @@ class SurveysController < ApplicationController
   def show
     @user = User.first
     @survey = Survey.find(params[:id])
+    @count = 0
   end
 
   def new

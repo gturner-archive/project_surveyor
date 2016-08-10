@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="text-center">
+    <h1><%= @survey.title %></h1>
+    <p><%= @survey.description %></p>
+  </div>
+
+  <div class="col-sm-8 col-sm-offset-2">
+    <%= form_for @survey_taking do |f| %>
+      <% f.questions.each do |response| %>
+        <%= f.fields_for question do |response_form| %>
+
+          <p><%= response.question.title %></p>
+
+          <% if response.answerable_type == number_range_questions %>
+            <div class="form-group">
+              <span><%= response.question.min %></span>
+              <%= response_form.range_field response.question_id, min: response.question.min, max: response.question.max %>
+              <span><%= question.max %></span>
+            </div>
+
+          <% elsif response.question.multiple_choices %>
+            <div class="form-group">
+              <% response.question.options.each do |option|%>
+                 <%= response_form.label option.title %>
+                 <%= response_form.check_box response.question_id, {:multiple => true}, option.title, "" %>
+              <%= end %>
+            </div>
+
+          <% else %>
+            <div class="form-group">
+              <% response.question.options.each_with_index do |option, idx|%>
+                <%= response_form.label option.title %>                  <%= response_form.hidden_field response.question_id, :value => "", :checked => true if idx == 0 %>
+                <%= response_form.radio_button response.question_id, option.title %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

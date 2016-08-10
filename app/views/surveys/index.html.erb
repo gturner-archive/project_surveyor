@@ -2,10 +2,11 @@
 
 <% @surveys.each do |survey| %>
   <% if survey.has_questions? %>
-    <h4><%= link_to survey.title, survey %></h4>
+    <h4><%= link_to survey.title, survey %> Number of Responses: <%= survey.nrq_responses.count + survey.mcq_responses.count %></h4>
     <ul>
       <li><%= link_to "Edit the Survey", edit_survey_path(survey) %></li>
       <li><%= link_to "Delete the Survey", surveys_path(survey), method: :delete %></li>
+      <li><%= link_to "View Survey Results", admin_survey_path(survey) %></li>
     </ul>
   <% else %>
     <h4><%= survey.title %></h4>
